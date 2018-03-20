@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO.Ports;
 
 namespace MotorControlGUI
 {
@@ -20,9 +21,42 @@ namespace MotorControlGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        SerialPort serial;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            SerialPortInit("COM4");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        private void SerialPortInit(String port)
+        {
+            serial = new SerialPort();
+
+            serial.PortName = port;
+
+            serial.ReadTimeout = 500;
+            serial.WriteTimeout = 500;
+
+            //serial.Open();
+
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void M1Forward_Click(object sender, RoutedEventArgs e)
+        {
+            String speed = M1Speed.Text;
+            Console.WriteLine(speed);
         }
     }
 }
